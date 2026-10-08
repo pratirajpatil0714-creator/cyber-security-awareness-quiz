@@ -1,41 +1,215 @@
+
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Feedback · Government Polytechnic, Kolhapur</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css"></head><body>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Feedback · Government Polytechnic, Kolhapur</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/style.css">
+
+  <style>
+    .site-footer {
+      max-width: 740px;
+      margin: 0 auto 28px;
+      padding: 22px 16px;
+      text-align: center;
+      color: var(--mu);
+      font-size: .82rem;
+      line-height: 1.7;
+    }
+
+    .site-footer .copyright {
+      font-weight: 600;
+      color: var(--tx);
+      margin-bottom: 5px;
+    }
+
+    .site-footer .team {
+      margin-top: 4px;
+      overflow-wrap: anywhere;
+    }
+
+    .site-footer .team-title {
+      font-weight: 600;
+      color: var(--tx);
+    }
+
+    @media (max-width: 600px) {
+      .site-footer {
+        padding: 20px 12px;
+        font-size: .78rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
 <header class="hero compact">
-  <span class="college"><img class="lg" src="/logo.png" alt="" onerror="this.remove()"> Government Polytechnic, Kolhapur</span>
+  <span class="college">
+    <img class="lg" src="/logo.png" alt="" onerror="this.remove()">
+    Government Polytechnic, Kolhapur
+  </span>
+
   <h1 style="margin-top:14px">Participant Feedback</h1>
-  <p style="margin-top:4px">Cyber-Security Awareness Program · Department of Information Technology</p>
+
+  <p style="margin-top:4px">
+    Cyber-Security Awareness Program · Department of Information Technology
+  </p>
 </header>
+
 <main class="wrap">
-<section id="form" class="card">
-  <h2>Please share your feedback</h2>
-  <p class="muted" style="margin:0 0 16px">Both questions are required. If you passed the quiz, your certificate is generated as soon as you submit this form.</p>
-  <div class="f"><label for="a1">1. What did you learn from this awareness program, or how has your awareness about cyber security improved?</label><textarea id="a1" rows="4" maxlength="600" placeholder="Write your answer here"></textarea></div>
-  <div class="f"><label for="a2">2. Do you have any suggestions to improve this program?</label><textarea id="a2" rows="4" maxlength="600" placeholder="Write your suggestions here"></textarea></div>
-  <button id="send" class="btn full">Submit feedback</button><p id="err" class="err"></p>
-</section>
-<section id="noid" class="card hide center"><div style="font-size:2.4rem">📝</div><h2>Take the quiz first</h2><p class="muted" style="margin:0 0 16px">The feedback form opens after you complete the quiz.</p><a class="btn" href="/quiz">Go to the quiz</a></section>
-<section id="thanks" class="card hide center">
-  <div style="font-size:3rem">🙏</div><h2>Thank you!</h2><p class="muted" style="margin:0 0 16px">Your feedback has been recorded.</p>
-  <a class="btn ghost" href="/">Back to home</a>
-</section>
+
+  <section id="form" class="card">
+    <h2>Please share your feedback</h2>
+
+    <p class="muted" style="margin:0 0 16px">
+      Both questions are required. If you passed the quiz, your certificate
+      is generated as soon as you submit this form.
+    </p>
+
+    <div class="f">
+      <label for="a1">
+        1. What did you learn from this awareness program, or how has your
+        awareness about cyber security improved?
+      </label>
+
+      <textarea
+        id="a1"
+        rows="4"
+        maxlength="600"
+        placeholder="Write your answer here"
+      ></textarea>
+    </div>
+
+    <div class="f">
+      <label for="a2">
+        2. Do you have any suggestions to improve this program?
+      </label>
+
+      <textarea
+        id="a2"
+        rows="4"
+        maxlength="600"
+        placeholder="Write your suggestions here"
+      ></textarea>
+    </div>
+
+    <button id="send" class="btn full">Submit feedback</button>
+
+    <p id="err" class="err"></p>
+  </section>
+
+  <section id="noid" class="card hide center">
+    <div style="font-size:2.4rem">📝</div>
+
+    <h2>Take the quiz first</h2>
+
+    <p class="muted" style="margin:0 0 16px">
+      The feedback form opens after you complete the quiz.
+    </p>
+
+    <a class="btn" href="/quiz">Go to the quiz</a>
+  </section>
+
+  <section id="thanks" class="card hide center">
+    <div style="font-size:3rem">🙏</div>
+
+    <h2>Thank you!</h2>
+
+    <p class="muted" style="margin:0 0 16px">
+      Your feedback has been recorded.
+    </p>
+
+    <a class="btn ghost" href="/">Back to home</a>
+  </section>
+
 </main>
+
+<footer class="site-footer">
+  <div class="copyright">
+    © 2026 Cyber-Security Awareness Quiz · Government Polytechnic, Kolhapur
+  </div>
+
+  <div class="team">
+    <div class="team-title">Developed by</div>
+    246052 – Pratiraj Patil ·
+    246033 – Siddhswaroop Kumbhar ·
+    246065 – Vaibhav Sabale
+  </div>
+</footer>
+
 <script>
-window.go=u=>(window.nav||(x=>location.href=x))(u);
-const $=id=>document.getElementById(id);
-let id=new URLSearchParams(location.search).get("id")||"";
-if(!id){try{id=sessionStorage.getItem("attemptId")||""}catch(e){}}
-if(!id){$("form").classList.add("hide");$("noid").classList.remove("hide")}
-$("send").onclick=async()=>{
-  const a=$("a1").value.trim(),b=$("a2").value.trim();
-  if(a.length<5||b.length<5){$("err").textContent="Please answer both questions (at least 5 characters each). Feedback is required.";return}
-  $("send").disabled=true;$("err").textContent="";
-  try{const r=await fetch("/api/feedback",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({attemptId:id,learned:a,suggestion:b})});
-    const d=await r.json();if(!r.ok)throw new Error(d.error||"Error");
-    if(d.passed){go("/certificate?id="+encodeURIComponent(id));return}
-    $("form").classList.add("hide");$("thanks").classList.remove("hide")}
-  catch(e){$("err").textContent=e.message||"Could not submit. Please try again.";$("send").disabled=false}
+window.go = u => (window.nav || (x => location.href = x))(u);
+
+const $ = id => document.getElementById(id);
+
+let id = new URLSearchParams(location.search).get("id") || "";
+
+if (!id) {
+  try {
+    id = sessionStorage.getItem("attemptId") || "";
+  } catch (e) {}
+}
+
+if (!id) {
+  $("form").classList.add("hide");
+  $("noid").classList.remove("hide");
+}
+
+$("send").onclick = async () => {
+  const a = $("a1").value.trim();
+  const b = $("a2").value.trim();
+
+  if (a.length < 5 || b.length < 5) {
+    $("err").textContent =
+      "Please answer both questions (at least 5 characters each). Feedback is required.";
+    return;
+  }
+
+  $("send").disabled = true;
+  $("err").textContent = "";
+
+  try {
+    const r = await fetch("/api/feedback", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        attemptId: id,
+        learned: a,
+        suggestion: b
+      })
+    });
+
+    const d = await r.json();
+
+    if (!r.ok) {
+      throw new Error(d.error || "Error");
+    }
+
+    if (d.passed) {
+      go("/certificate?id=" + encodeURIComponent(id));
+      return;
+    }
+
+    $("form").classList.add("hide");
+    $("thanks").classList.remove("hide");
+
+  } catch (e) {
+    $("err").textContent =
+      e.message || "Could not submit. Please try again.";
+
+    $("send").disabled = false;
+  }
 };
-</script></body></html>
+</script>
+
+</body>
+</html>
