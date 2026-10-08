@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin · Cyber-Security Awareness Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<style>
+.hero.compact{padding:22px 18px 90px;text-align:left}.hero .in{max-width:1040px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.hero h1{font-size:1.3rem;margin:0}.hero small{opacity:.8}.wrap.w{max-width:1040px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.s{background:var(--soft);border:1px solid var(--bd);border-radius:16px;padding:16px}.s i{font-style:normal;font-size:1.3rem}.s b{display:block;font:700 1.7rem Poppins,sans-serif;color:var(--ac);line-height:1.2}.s span{font-size:.78rem;color:var(--mu)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.acts{display:flex;gap:10px;flex-wrap:wrap}.bar2{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}.bar2 input{flex:1;min-width:200px;padding:11px 14px;border:2px solid var(--bd);border-radius:12px;background:var(--soft);color:var(--tx);font:inherit}
+.tw{overflow-x:auto;border:1px solid var(--bd);border-radius:14px}table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{background:var(--soft);color:var(--mu);font-weight:600;white-space:nowrap;text-align:left;padding:11px 10px;position:sticky;top:0}td{padding:11px 10px;border-top:1px solid var(--bd);vertical-align:top}tr:hover td{background:var(--soft)}
+.b{display:inline-block;padding:3px 10px;border-radius:99px;font-size:.75rem;font-weight:600}.b.p{background:#dcfce7;color:#166534}.b.f{background:#fee2e2;color:#991b1b}
+</style></head><body>
+<header class="hero compact"><div class="in"><div><h1>🛡️ Admin dashboard</h1><small>Government Polytechnic, Kolhapur · Department of Information Technology</small></div><button id="out" class="btn sm ghost hide">Log out</button></div></header>
+<main class="wrap w">
+<section id="login" class="card" style="max-width:400px;margin:0 auto 18px"><h2>Admin login</h2><p class="muted" style="margin:0 0 14px">Enter the admin password to continue.</p>
+<div class="f"><input id="pw" type="password" placeholder="Admin password"></div><button id="in" class="btn full">Login →</button><p id="err" class="err"></p></section>
+<div id="dash" class="hide">
+<section class="card"><div class="stats" id="stats"></div></section>
+<section class="card"><div class="row"><h2 style="margin:0">⏰ Quiz schedule</h2><span id="sp" class="pill"></span></div>
+<p class="muted" id="sinfo" style="margin:0 0 14px"></p>
+<div class="g2"><div class="f"><label for="s1">Quiz opens at</label><input type="datetime-local" id="s1"></div><div class="f"><label for="s2">Quiz closes at</label><input type="datetime-local" id="s2"></div></div>
+<div class="acts"><button id="sv" class="btn sm">Save schedule</button><button id="cl" class="btn sm danger">Close now</button><button id="op" class="btn sm ghost">Open now (+3 days)</button></div><p id="smsg" class="muted" style="margin:12px 0 0"></p></section>
+<section class="card"><h2 style="margin:0 0 6px">🔁 Allow a retake</h2><p class="muted" style="margin:0 0 12px">A student who already holds a certificate is blocked from retaking. Enter the roll number to unblock them.</p>
+<div class="bar2"><input id="rt" placeholder="6-digit roll number" maxlength="6" inputmode="numeric"><button id="rtb" class="btn sm">Allow retake</button></div><p id="rtm" class="muted" style="margin:0"></p></section>
+<section class="card"><div class="bar2"><input id="q" placeholder="Search name, roll no, department, certificate ID…"><button id="rf" class="btn sm ghost">↻ Refresh</button><button id="csv" class="btn sm">⬇ Download CSV</button></div>
+<div class="tw"><table><thead><tr><th>#</th><th>Name</th><th>Roll no</th><th>Department</th><th>Score</th><th>Result</th><th>Certificate ID</th><th>Date</th><th>Feedback</th></tr></thead><tbody id="tb"></tbody></table></div>
+<p id="note" class="err"></p></section>
+</div></main>
+<script>
+const $=id=>document.getElementById(id);let PW="",rows=[];
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fm=s=>new Date(s).toLocaleString([], {dateStyle:"medium",timeStyle:"short"});
+const loc=s=>{const d=new Date(s);d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16)};
+async function api(body){
+  const r=await fetch("/api/admin",{method:body?"POST":"GET",headers:{"x-admin-password":PW,"Content-Type":"application/json"},body:body?JSON.stringify(body):undefined});
+  const d=await r.json();if(!r.ok)throw new Error(d.error||"Error");rows=d.rows;paint(d);return d;
+}
+function paint(d){
+  const s=d.settings,m={open:["Open","ok"],closed:["Closed","bad"],not_started:["Scheduled",""]}[s.status];
+  $("sp").textContent=m[0];$("sp").className="pill "+m[1];
+  $("sinfo").textContent=s.status==="open"?"The quiz is live and will close automatically on "+fm(s.end)+".":s.status==="closed"?"The quiz closed on "+fm(s.end)+". Students cannot take it.":"The quiz opens on "+fm(s.start)+".";
+  $("s1").value=loc(s.start);$("s2").value=loc(s.end);
+  $("note").textContent=d.dbEnabled===false?"Database not connected yet. Connect Upstash Redis in Vercel Storage to save data and schedule changes.":"";
+  const pass=rows.filter(r=>r.passed).length,avg=a=>a.length?(a.reduce((x,y)=>x+y,0)/a.length).toFixed(1):"–";
+  $("stats").innerHTML=[["👥","Attempts",rows.length],["🎓","Passed",pass],["📈","Pass rate",rows.length?Math.round(pass/rows.length*100)+"%":"–"],["🎯","Avg score",avg(rows.map(r=>r.percent))+(rows.length?"%":"")]].map(x=>'<div class="s"><i>'+x[0]+'</i><b>'+x[2]+'</b><span>'+x[1]+'</span></div>').join("");
+  render();
+}
+function render(){
+  const t=$("q").value.toLowerCase();
+  const v=rows.filter(r=>[r.name,r.roll,r.dept,r.certId,r.feedback&&(r.feedback.learned+" "+r.feedback.suggestion)].join(" ").toLowerCase().includes(t));
+  $("tb").innerHTML=v.map((r,i)=>'<tr><td>'+(i+1)+'</td><td><b>'+esc(r.name)+'</b></td><td>'+esc(r.roll)+'</td><td>'+esc(r.dept)+'</td><td>'+r.score+'/'+r.total+' ('+r.percent+'%)</td><td><span class="b '+(r.passed?"p":"f")+'">'+(r.passed?"Passed":"Failed")+'</span></td><td>'+esc(r.certId||"–")+'</td><td>'+fm(r.date)+'</td><td>'+(r.feedback?"<b>Learned:</b> "+esc(r.feedback.learned)+"<br><b>Suggestion:</b> "+esc(r.feedback.suggestion):"")+'</td></tr>').join("")||'<tr><td colspan="9" style="text-align:center;color:var(--mu)">No data yet.</td></tr>';
+}
+const msg=t=>{$("smsg").textContent=t};
+$("in").onclick=async()=>{PW=$("pw").value;try{await api();$("login").classList.add("hide");$("dash").classList.remove("hide");$("out").classList.remove("hide")}catch(e){$("err").textContent=e.message}};
+$("pw").addEventListener("keydown",e=>{if(e.key==="Enter")$("in").click()});
+$("sv").onclick=async()=>{if(!$("s1").value||!$("s2").value)return msg("Choose both times first.");try{await api({action:"schedule",start:new Date($("s1").value).toISOString(),end:new Date($("s2").value).toISOString()});msg("Schedule saved ✓")}catch(e){msg(e.message)}};
+$("cl").onclick=async()=>{if(!confirm("Close the quiz right now?"))return;try{await api({action:"closeNow"});msg("Quiz closed ✓")}catch(e){msg(e.message)}};
+$("op").onclick=async()=>{try{await api({action:"openNow",days:3});msg("Quiz opened for 3 days ✓")}catch(e){msg(e.message)}};
+$("rtb").onclick=async()=>{try{await api({action:"allowRetake",roll:$("rt").value});$("rtm").textContent="Roll "+$("rt").value+" can take the quiz again ✓"}catch(e){$("rtm").textContent=e.message}};
+$("q").oninput=render;$("rf").onclick=()=>api().catch(e=>alert(e.message));
+$("out").onclick=()=>{PW="";rows=[];$("dash").classList.add("hide");$("out").classList.add("hide");$("login").classList.remove("hide");$("pw").value=""};
+$("csv").onclick=()=>{
+  const h=["Name","RollNo","Department","Score","Percent","Result","CertificateID","Date","WhatTheyLearned","Suggestion"],c=s=>'"'+String(s==null?"":s).replace(/"/g,'""')+'"';
+  const body=rows.map(r=>[r.name,r.roll,r.dept,r.score+"/"+r.total,r.percent,r.passed?"Passed":"Failed",r.certId,r.date,r.feedback?r.feedback.learned:"",r.feedback?r.feedback.suggestion:""].map(c).join(","));
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([[h.join(",")].concat(body).join("\n")],{type:"text/csv"}));a.download="quiz-results.csv";a.click();
+};
+</script></body></html>
