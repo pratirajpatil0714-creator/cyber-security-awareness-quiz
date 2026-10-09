@@ -1,109 +1,450 @@
+
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Awareness Quiz · Government Polytechnic, Kolhapur</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css"></head><body>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Awareness Quiz · Government Polytechnic, Kolhapur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
 <header class="hero compact">
   <span class="college"><img class="lg" src="/logo.png" alt="" onerror="this.remove()"> Government Polytechnic, Kolhapur</span>
   <h1 style="margin-top:14px">Cyber-Security Awareness Quiz</h1>
   <p style="margin-top:4px">Department of Information Technology</p>
-  <p><a href="/" style="color:#fff;opacity:.8;font-size:.85rem">← Program page</a> &nbsp;·&nbsp; <a href="/learn" style="color:#fff;opacity:.8;font-size:.85rem">📖 Read the basics</a></p>
+  <p>
+    <a href="/" style="color:#fff;opacity:.8;font-size:.85rem">← Program page</a>
+    &nbsp;·&nbsp;
+    <a href="/learn" style="color:#fff;opacity:.8;font-size:.85rem">📖 Read the basics</a>
+  </p>
 </header>
+
 <main class="wrap">
-<div class="steps"><div class="st"><i>1</i>Details</div><div class="st"><i>2</i>Confirm</div><div class="st"><i>3</i>Quiz</div><div class="st"><i>4</i>Result</div></div>
+  <div class="steps">
+    <div class="st"><i>1</i>Details</div>
+    <div class="st"><i>2</i>Confirm</div>
+    <div class="st"><i>3</i>Quiz</div>
+    <div class="st"><i>4</i>Result</div>
+  </div>
 
-<section id="s1" class="card">
-  <h2>Enter your details</h2><p class="muted" style="margin:0">Your name will be printed on the certificate.</p>
-  <div class="info"><span id="pill" class="pill">Loading…</span><span id="info"></span></div>
-  <div class="f"><label for="name">Full name</label><input id="name" placeholder="e.g. Aarav Suresh Patil" maxlength="50" autocomplete="name"></div>
-  <div class="f"><label for="roll">Roll number</label><input id="roll" placeholder="246052" maxlength="6" inputmode="numeric" autocomplete="off"><small>Exactly 6 digits</small></div>
-  <div class="f"><label for="dept">Department</label><input id="dept" list="dl" placeholder="Choose or type your department" maxlength="60"></div>
-  <datalist id="dl"><option value="Information Technology"><option value="Metallurgy"><option value="Civil Engineering"><option value="Mechanical Engineering"><option value="Electrical Engineering"><option value="Electronics and Telecommunication"></datalist>
-  <button id="go" class="btn full" disabled>Continue →</button><p id="err" class="err"></p>
-</section>
+  <section id="s1" class="card">
+    <h2>Enter your details</h2>
+    <p class="muted" style="margin:0">Your name will be printed on the certificate.</p>
 
-<section id="s2" class="card hide">
-  <h2>Confirm your details</h2><p class="muted" style="margin:0">This is exactly how your name will appear on the certificate. Please check the spelling.</p>
-  <div class="sum"><div class="muted">Name on certificate</div><div class="nm" id="cfn"></div>
-    <div class="r"><span>Roll no: <b id="cfr"></b></span><span>Department: <b id="cfd"></b></span><span><b id="cfa"></b></span></div></div>
-  <div class="two"><button id="edit" class="btn ghost">✎ Edit details</button><button id="ok" class="btn">✓ Confirm and start</button></div>
-</section>
+    <div class="info">
+      <span id="pill" class="pill">Loading…</span>
+      <span id="info"></span>
+    </div>
 
-<section id="s3" class="card hide">
-  <div class="top"><span id="cnt"></span><span id="pct"></span></div><div class="bar"><i id="pb"></i></div>
-  <h3 id="q"></h3><div id="opts"></div>
-  <div class="nav"><button id="prev" class="btn ghost">← Back</button><button id="next" class="btn" disabled>Next →</button></div>
-</section>
+    <div class="f">
+      <label for="participantType">I am a</label>
+      <select id="participantType">
+        <option value="student">Student</option>
+        <option value="teacher">Teacher</option>
+      </select>
+    </div>
 
-<section id="s4" class="card hide center">
-  <div class="ring"><svg width="170" height="170" viewBox="0 0 150 150"><circle cx="75" cy="75" r="62" fill="none" stroke="var(--bd)" stroke-width="12"/><circle id="arc" cx="75" cy="75" r="62" fill="none" stroke="var(--ac)" stroke-width="12" stroke-linecap="round" stroke-dasharray="390" stroke-dashoffset="390" style="transition:stroke-dashoffset 1.3s ease"/></svg><div class="t" id="pc"></div></div>
-  <div class="muted" id="sc"></div><h2 id="verdict" style="margin:8px 0 4px"></h2><p class="muted" id="msg" style="margin:0 0 4px"></p>
-</section>
+    <div class="f">
+      <label for="name">Full name</label>
+      <input id="name" placeholder="e.g. Aarav Suresh Patil" maxlength="50" autocomplete="name">
+    </div>
 
-<section id="fbgo" class="card center hide">
-  <div style="font-size:2.4rem">💬</div><h2 id="fbt">Feedback is required</h2><p class="muted" id="fbm" style="margin:0 0 14px"></p>
-  <a id="fblink" class="btn xl" href="/feedback">Continue to feedback →</a>
-  <p style="margin:16px 0 0"><button id="retry" class="btn ghost hide">Try the quiz again</button></p>
-</section>
+    <div id="studentFields">
+      <div class="f">
+        <label for="roll">Roll number</label>
+        <input id="roll" placeholder="246052" maxlength="6" inputmode="numeric" autocomplete="off">
+        <small>Exactly 6 digits</small>
+      </div>
+
+      <div class="f">
+        <label for="dept">Department</label>
+        <input id="dept" list="dl" placeholder="Choose or type your department" maxlength="60">
+      </div>
+
+      <datalist id="dl">
+        <option value="Information Technology">
+        <option value="Metallurgy">
+        <option value="Civil Engineering">
+        <option value="Mechanical Engineering">
+        <option value="Electrical Engineering">
+        <option value="Electronics and Telecommunication">
+      </datalist>
+    </div>
+
+    <button id="go" class="btn full" disabled>Continue →</button>
+    <p id="err" class="err"></p>
+  </section>
+
+  <section id="s2" class="card hide">
+    <h2>Confirm your details</h2>
+    <p class="muted" style="margin:0">
+      Please check your details and the spelling of your name before continuing.
+    </p>
+
+    <div class="sum">
+      <div class="muted">Participant type</div>
+      <div class="nm" id="cft"></div>
+
+      <div class="muted" style="margin-top:12px">Name on certificate</div>
+      <div class="nm" id="cfn"></div>
+
+      <div class="r" id="studentSummary">
+        <span>Roll no: <b id="cfr"></b></span>
+        <span>Department: <b id="cfd"></b></span>
+      </div>
+
+      <div class="r">
+        <span><b id="cfa"></b></span>
+      </div>
+    </div>
+
+    <div class="two">
+      <button id="edit" class="btn ghost">✎ Edit details</button>
+      <button id="ok" class="btn">✓ Confirm and start</button>
+    </div>
+  </section>
+
+  <section id="s3" class="card hide">
+    <div class="top">
+      <span id="cnt"></span>
+      <span id="pct"></span>
+    </div>
+    <div class="bar"><i id="pb"></i></div>
+    <h3 id="q"></h3>
+    <div id="opts"></div>
+    <div class="nav">
+      <button id="prev" class="btn ghost">← Back</button>
+      <button id="next" class="btn" disabled>Next →</button>
+    </div>
+  </section>
+
+  <section id="s4" class="card hide center">
+    <div class="ring">
+      <svg width="170" height="170" viewBox="0 0 150 150">
+        <circle cx="75" cy="75" r="62" fill="none" stroke="var(--bd)" stroke-width="12"/>
+        <circle id="arc" cx="75" cy="75" r="62" fill="none" stroke="var(--ac)"
+          stroke-width="12" stroke-linecap="round" stroke-dasharray="390"
+          stroke-dashoffset="390" style="transition:stroke-dashoffset 1.3s ease"/>
+      </svg>
+      <div class="t" id="pc"></div>
+    </div>
+    <div class="muted" id="sc"></div>
+    <h2 id="verdict" style="margin:8px 0 4px"></h2>
+    <p class="muted" id="msg" style="margin:0 0 4px"></p>
+  </section>
+
+  <section id="fbgo" class="card center hide">
+    <div style="font-size:2.4rem">💬</div>
+    <h2 id="fbt">Feedback is required</h2>
+    <p class="muted" id="fbm" style="margin:0 0 14px"></p>
+    <a id="fblink" class="btn xl" href="/feedback">Continue to feedback →</a>
+    <p style="margin:16px 0 0">
+      <button id="retry" class="btn ghost hide">Try the quiz again</button>
+    </p>
+  </section>
 </main>
-<script>window.go=u=>(window.nav||(x=>location.href=x))(u);
-const $=id=>document.getElementById(id);
-const fm=s=>new Date(s).toLocaleString([], {dateStyle:"medium",timeStyle:"short"});
-let Q0=[],Q=[],A=[],i=0,P={},last=null,PASS=65,PM=10,TOT=15;
-function step(n){document.querySelectorAll(".st").forEach((e,k)=>{e.className="st"+(k+1<n?" done":k+1===n?" on":"");e.firstChild.textContent=k+1<n?"✓":k+1})}
-function view(id){["s1","s2","s3","s4"].forEach(x=>$(x).classList.toggle("hide",x!==id));scrollTo({top:0,behavior:"smooth"})}
-async function load(){
+
+<script>
+window.go = u => (window.nav || (x => location.href = x))(u);
+const $ = id => document.getElementById(id);
+const fm = s => new Date(s).toLocaleString([], {
+  dateStyle: "medium",
+  timeStyle: "short"
+});
+
+let Q0 = [], Q = [], A = [], i = 0, P = {}, last = null;
+let PASS = 65, PM = 10, TOT = 15;
+
+function step(n) {
+  document.querySelectorAll(".st").forEach((e, k) => {
+    e.className = "st" + (k + 1 < n ? " done" : k + 1 === n ? " on" : "");
+    e.firstChild.textContent = k + 1 < n ? "✓" : k + 1;
+  });
+}
+
+function view(id) {
+  ["s1", "s2", "s3", "s4"].forEach(x =>
+    $(x).classList.toggle("hide", x !== id)
+  );
+  scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function updateParticipantFields() {
+  const teacher = $("participantType").value === "teacher";
+  $("studentFields").classList.toggle("hide", teacher);
+  $("studentSummary").classList.toggle("hide", teacher);
+  $("roll").required = !teacher;
+  $("dept").required = !teacher;
+}
+
+$("participantType").onchange = () => {
+  updateParticipantFields();
+  $("err").textContent = "";
+};
+
+async function load() {
   step(1);
-  try{const d=await (await fetch("/api/questions")).json();Q0=d.questions;PASS=d.passPercent;PM=d.passMarks;TOT=d.total;
-    const m={open:["Quiz is open","ok"],not_started:["Opens "+fm(d.start),""],closed:["Quiz is closed","bad"]}[d.status];
-    $("pill").textContent=m[0];$("pill").className="pill "+m[1];
-    $("info").textContent=TOT+" questions · Pass mark "+PM+"/"+TOT+" ("+PASS+"%) · 2 attempts"+(d.status==="open"?" · Closes "+fm(d.end):"");
-    $("go").disabled=d.status!=="open";
-  }catch(e){$("pill").textContent="Could not load. Refresh.";$("pill").className="pill bad"}
+  updateParticipantFields();
+
+  try {
+    const response = await fetch("/api/questions", { cache: "no-store" });
+    const d = await response.json();
+
+    if (!response.ok) throw new Error(d.error || "Could not load quiz.");
+
+    Q0 = d.questions;
+    PASS = d.passPercent;
+    PM = d.passMarks;
+    TOT = d.total;
+
+    const m = {
+      open: ["Quiz is open", "ok"],
+      not_started: ["Opens " + fm(d.start), ""],
+      closed: ["Quiz is closed", "bad"]
+    }[d.status];
+
+    $("pill").textContent = m[0];
+    $("pill").className = "pill " + m[1];
+    $("info").textContent =
+      TOT + " questions · Pass mark " + PM + "/" + TOT +
+      " (" + PASS + "%) · 2 attempts" +
+      (d.status === "open" ? " · Closes " + fm(d.end) : "");
+
+    $("go").disabled = d.status !== "open";
+  } catch (e) {
+    $("pill").textContent = "Could not load. Refresh.";
+    $("pill").className = "pill bad";
+  }
 }
-$("roll").oninput=e=>{e.target.value=e.target.value.replace(/\D/g,"").slice(0,6)};
-$("go").onclick=async()=>{
-  const n=$("name").value.trim().replace(/\s+/g," "),r=$("roll").value,d=$("dept").value.trim();
-  const e=n.length<2?"Please enter your full name.":!/^\d{6}$/.test(r)?"Roll number must be exactly 6 digits (example: 246052).":d.length<2?"Please enter your department.":"";
-  $("err").textContent=e;if(e)return;
-  $("go").disabled=true;
-  try{const c=await (await fetch("/api/check?roll="+r)).json();if(c.allowed!==true){$("err").textContent=c.reason||"You cannot take the quiz again.";$("go").disabled=false;return}
-    P.left=c.attemptsLeft}catch(x){$("err").textContent="Could not verify your attempts. Please check your connection and try again.";$("go").disabled=false;return}
-  $("go").disabled=false;
-  P={name:n,roll:r,dept:d};$("cfn").textContent=n;$("cfr").textContent=r;$("cfd").textContent=d;$("cfa").textContent="Attempt "+(3-P.left)+" of 2";step(2);view("s2");
+
+$("roll").oninput = e => {
+  e.target.value = e.target.value.replace(/\D/g, "").slice(0, 6);
 };
-$("edit").onclick=()=>{step(1);view("s1")};
-$("ok").onclick=()=>{i=0;A=[];Q=Q0.map(x=>x);for(let k=Q.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[Q[k],Q[j]]=[Q[j],Q[k]]}step(3);view("s3");ask()};
-function ask(){
-  $("cnt").textContent="Question "+(i+1)+" of "+Q.length;$("pct").textContent=Math.round(i/Q.length*100)+"%";$("pb").style.width=(i/Q.length*100)+"%";
-  $("q").textContent=Q[i].q;$("opts").innerHTML="";
-  Q[i].o.forEach((t,k)=>{const b=document.createElement("button");b.className="opt"+(A[i]===k?" sel":"");
-    b.innerHTML='<span class="l">'+"ABCD"[k]+'</span><span></span>';b.lastChild.textContent=t;
-    b.onclick=()=>{A[i]=k;[...$("opts").children].forEach((c,j)=>c.classList.toggle("sel",j===k));$("next").disabled=false};$("opts").appendChild(b)});
-  $("next").disabled=A[i]===undefined;$("prev").style.visibility=i?"visible":"hidden";$("next").textContent=i===Q.length-1?"Finish ✓":"Next →";
-}
-$("prev").onclick=()=>{if(i){i--;ask()}};
-$("next").onclick=async()=>{
-  if(++i<Q.length)return ask();
-  $("next").disabled=true;$("next").textContent="Checking…";
-  try{const r=await fetch("/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:P.name,roll:P.roll,dept:P.dept,answers:Q.map((x,k)=>({id:x.id,a:A[k]}))})});
-    const d=await r.json();if(!r.ok)throw new Error(d.error||"Error");finish(d)}
-  catch(e){alert(e.message);i=Q.length-1;ask()}
+
+$("go").onclick = async () => {
+  const type = $("participantType").value;
+  const n = $("name").value.trim().replace(/\s+/g, " ");
+  const r = $("roll").value.trim();
+  const d = $("dept").value.trim();
+
+  let error = "";
+
+  if (n.length < 2) {
+    error = "Please enter your full name.";
+  } else if (type === "student" && !/^\d{6}$/.test(r)) {
+    error = "Roll number must be exactly 6 digits (example: 246052).";
+  } else if (type === "student" && d.length < 2) {
+    error = "Please enter your department.";
+  }
+
+  $("err").textContent = error;
+  if (error) return;
+
+  $("go").disabled = true;
+
+  try {
+    let url;
+
+    if (type === "teacher") {
+      url = "/api/check?type=teacher&name=" + encodeURIComponent(n);
+    } else {
+      url = "/api/check?type=student&roll=" + encodeURIComponent(r);
+    }
+
+    const response = await fetch(url, { cache: "no-store" });
+    const c = await response.json();
+
+    if (!response.ok || c.allowed !== true) {
+      $("err").textContent = c.reason || c.error || "You cannot take the quiz again.";
+      $("go").disabled = false;
+      return;
+    }
+
+    P = {
+      participantType: type,
+      name: n,
+      roll: type === "student" ? r : "",
+      dept: type === "student" ? d : "",
+      left: c.attemptsLeft
+    };
+  } catch (e) {
+    $("err").textContent =
+      "Could not verify your attempts. Please check your connection and try again.";
+    $("go").disabled = false;
+    return;
+  }
+
+  $("go").disabled = false;
+
+  $("cft").textContent = type === "teacher" ? "Teacher" : "Student";
+  $("cfn").textContent = n;
+  $("cfr").textContent = P.roll || "";
+  $("cfd").textContent = P.dept || "";
+  $("cfa").textContent = "Attempt " + (3 - P.left) + " of 2";
+
+  step(2);
+  view("s2");
 };
-function finish(d){
-  last=d;step(4);view("s4");
-  $("pc").textContent=d.percent+"%";$("sc").textContent="You scored "+d.score+" out of "+d.total;
-  const a=$("arc");a.style.stroke=d.passed?"var(--ok)":"var(--bad)";requestAnimationFrame(()=>setTimeout(()=>a.style.strokeDashoffset=390*(1-d.percent/100),60));
-  $("verdict").textContent=d.passed?"Congratulations, you passed!":"Not passed this time";$("verdict").className=d.passed?"ok-t":"bad-t";
-  try{sessionStorage.setItem("attemptId",d.attemptId||"")}catch(e){}
-  $("fblink").href="/feedback?id="+encodeURIComponent(d.attemptId||"");
-  if(d.passed){$("msg").textContent="Great work! Please fill in the short feedback form. Your certificate is generated right after you submit it.";confetti();
-    $("fbt").textContent="One last step: feedback";$("fbm").textContent="Your certificate will be generated after you submit the feedback form.";$("retry").classList.add("hide");$("fbgo").classList.remove("hide")}
-  else{$("msg").textContent="You needed "+PM+" out of "+TOT+" ("+PASS+"%) for the certificate. "+(d.attemptsLeft>0?"You have "+d.attemptsLeft+" attempt left.":"You have used both attempts, so you cannot take the quiz again.");
-    $("fbt").textContent="Share your feedback";$("fbm").textContent="Tell us what you learned and how we can improve the program.";$("retry").classList.toggle("hide",!(d.attemptsLeft>0));$("fbgo").classList.remove("hide")}
+
+$("edit").onclick = () => {
+  step(1);
+  view("s1");
+};
+
+$("ok").onclick = () => {
+  i = 0;
+  A = [];
+  Q = Q0.map(x => ({ ...x }));
+
+  for (let k = Q.length - 1; k > 0; k--) {
+    const j = Math.floor(Math.random() * (k + 1));
+    [Q[k], Q[j]] = [Q[j], Q[k]];
+  }
+
+  step(3);
+  view("s3");
+  ask();
+};
+
+function ask() {
+  $("cnt").textContent = "Question " + (i + 1) + " of " + Q.length;
+  $("pct").textContent = Math.round(i / Q.length * 100) + "%";
+  $("pb").style.width = (i / Q.length * 100) + "%";
+  $("q").textContent = Q[i].q;
+  $("opts").innerHTML = "";
+
+  Q[i].o.forEach((t, k) => {
+    const b = document.createElement("button");
+    b.className = "opt" + (A[i] === k ? " sel" : "");
+    b.innerHTML = '<span class="l">' + "ABCD"[k] + '</span><span></span>';
+    b.lastChild.textContent = t;
+
+    b.onclick = () => {
+      A[i] = k;
+      [...$("opts").children].forEach((c, j) =>
+        c.classList.toggle("sel", j === k)
+      );
+      $("next").disabled = false;
+    };
+
+    $("opts").appendChild(b);
+  });
+
+  $("next").disabled = A[i] === undefined;
+  $("prev").style.visibility = i ? "visible" : "hidden";
+  $("next").textContent = i === Q.length - 1 ? "Finish ✓" : "Next →";
 }
-$("retry").onclick=()=>location.reload();
-$("fblink").onclick=e=>{e.preventDefault();go($("fblink").getAttribute("href"))};
-function confetti(){for(let n=0;n<44;n++){const e=document.createElement("span");e.className="cf";e.textContent=["🎉","✨","🎊","⭐"][n%4];e.style.left=Math.random()*100+"vw";e.style.animationDuration=(2+Math.random()*2.5)+"s";document.body.appendChild(e);setTimeout(()=>e.remove(),5000)}}
+
+$("prev").onclick = () => {
+  if (i) {
+    i--;
+    ask();
+  }
+};
+
+$("next").onclick = async () => {
+  if (++i < Q.length) return ask();
+
+  $("next").disabled = true;
+  $("next").textContent = "Checking…";
+
+  try {
+    const response = await fetch("/api/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        participantType: P.participantType,
+        name: P.name,
+        roll: P.roll,
+        dept: P.dept,
+        answers: Q.map((x, k) => ({ id: x.id, a: A[k] }))
+      })
+    });
+
+    const d = await response.json();
+    if (!response.ok) throw new Error(d.error || "Error");
+
+    finish(d);
+  } catch (e) {
+    alert(e.message);
+    i = Q.length - 1;
+    ask();
+  }
+};
+
+function finish(d) {
+  last = d;
+  step(4);
+  view("s4");
+
+  $("pc").textContent = d.percent + "%";
+  $("sc").textContent = "You scored " + d.score + " out of " + d.total;
+
+  const a = $("arc");
+  a.style.stroke = d.passed ? "var(--ok)" : "var(--bad)";
+
+  requestAnimationFrame(() => setTimeout(() => {
+    a.style.strokeDashoffset = 390 * (1 - d.percent / 100);
+  }, 60));
+
+  $("verdict").textContent =
+    d.passed ? "Congratulations, you passed!" : "Not passed this time";
+  $("verdict").className = d.passed ? "ok-t" : "bad-t";
+
+  try {
+    sessionStorage.setItem("attemptId", d.attemptId || "");
+  } catch (e) {}
+
+  $("fblink").href = "/feedback?id=" + encodeURIComponent(d.attemptId || "");
+
+  if (d.passed) {
+    $("msg").textContent =
+      "Great work! Please fill in the short feedback form. Your certificate is generated right after you submit it.";
+    confetti();
+
+    $("fbt").textContent = "One last step: feedback";
+    $("fbm").textContent =
+      "Your certificate will be generated after you submit the feedback form.";
+    $("retry").classList.add("hide");
+    $("fbgo").classList.remove("hide");
+  } else {
+    $("msg").textContent =
+      "You needed " + PM + " out of " + TOT + " (" + PASS +
+      "%) for the certificate. " +
+      (d.attemptsLeft > 0
+        ? "You have " + d.attemptsLeft + " attempt left."
+        : "You have used both attempts, so you cannot take the quiz again.");
+
+    $("fbt").textContent = "Share your feedback";
+    $("fbm").textContent =
+      "Tell us what you learned and how we can improve the program.";
+    $("retry").classList.toggle("hide", !(d.attemptsLeft > 0));
+    $("fbgo").classList.remove("hide");
+  }
+}
+
+$("retry").onclick = () => location.reload();
+
+$("fblink").onclick = e => {
+  e.preventDefault();
+  go($("fblink").getAttribute("href"));
+};
+
+function confetti() {
+  for (let n = 0; n < 44; n++) {
+    const e = document.createElement("span");
+    e.className = "cf";
+    e.textContent = ["🎉", "✨", "🎊", "⭐"][n % 4];
+    e.style.left = Math.random() * 100 + "vw";
+    e.style.animationDuration = (2 + Math.random() * 2.5) + "s";
+    document.body.appendChild(e);
+    setTimeout(() => e.remove(), 5000);
+  }
+}
+
 load();
-</script></body></html>
+</script>
+</body>
+</html>
