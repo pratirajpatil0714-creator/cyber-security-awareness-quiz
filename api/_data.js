@@ -8,7 +8,7 @@ const DEF_START = new Date(process.env.START_DATE || '2026-10-05T00:00:00+05:30'
 const DEF_DAYS = Number(process.env.DAYS_OPEN || 3);
 
 const QUESTIONS = [
-  { q: "Phishing mainly used for?", o: ["Improving internet speed", "Protecting computer files", "Stealing information through deception", "Increasing device storage"], a: 2 },
+  { q: "Phishing is mainly used for?", o: ["Improving internet speed", "Protecting computer files", "Stealing information through deception", "Increasing device storage"], a: 2 },
   { q: "Which of the following is the best example of authentication?", o: ["Encrypting a file", "Installing antivirus software", "Connecting to Wi-Fi", "Confirming a user's identity"], a: 3 },
   { q: "What is the main purpose of a firewall?", o: ["Controlling network traffic based on rules", "Increasing computer processing speed", "Recovering deleted files", "Creating stronger passwords"], a: 0 },
   { q: "A student downloads a free game from an unknown website. After installation, the laptop becomes slow, unknown pop-ups appear, and files start behaving strangely. What is the most likely reason?", o: ["The internet connection is temporarily overloaded", "The device may have been infected with malware", "The laptop automatically changed its display settings", "The website may have increased the computer's storage usage"], a: 1 },
