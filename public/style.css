@@ -1,4 +1,3 @@
-
 :root {
   --bg: #f2f5fc;
   --card: #fff;
@@ -659,6 +658,7 @@ h1, h2, h3 {
   color: var(--tx);
 }
 
+/* Keep the original responsive layout */
 @media (max-width: 600px) {
   .card {
     padding: 22px 18px;
@@ -685,5 +685,56 @@ h1, h2, h3 {
 
   .participant-card {
     padding: 13px;
+  }
+}
+
+/* Footer team alignment: 3 members above, 2 centered below */
+.site-footer .team-members {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 8px auto 0;
+  width: 100%;
+}
+
+.site-footer .team-row {
+  display: grid;
+  width: 100%;
+  gap: 12px;
+  align-items: start;
+}
+
+.site-footer .team-row-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.site-footer .team-row-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: calc((100% - 24px) * 2 / 3 + 12px);
+}
+
+.site-footer .team-members p {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .site-footer .team-row {
+    gap: 8px;
+  }
+
+  .site-footer .team-row-two {
+    width: calc((100% - 16px) * 2 / 3 + 8px);
+  }
+}
+
+@media (max-width: 420px) {
+  .site-footer .team-row-three,
+  .site-footer .team-row-two {
+    grid-template-columns: 1fr;
+    width: 100%;
   }
 }
