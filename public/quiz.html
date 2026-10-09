@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,8 @@
   <title>Awareness Quiz · Government Polytechnic, Kolhapur</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
 </head>
 
@@ -48,10 +50,46 @@
       <span id="info"></span>
     </div>
 
-    <div class="f">
-      <label for="participantType">I am a</label>
-      <select id="participantType">
-        <option value="student">Student</option>
+    <!-- Participant type cards -->
+    <div class="f participant-field">
+      <label class="participant-heading">I am participating as</label>
+
+      <div class="participant-options">
+        <label class="participant-card selected" id="studentCard" for="studentType">
+          <input
+            type="radio"
+            name="participantChoice"
+            id="studentType"
+            value="student"
+            checked
+          >
+          <span class="participant-icon" aria-hidden="true">🎓</span>
+          <span class="participant-info">
+            <strong>Student</strong>
+            <small>Participating as a student</small>
+          </span>
+          <span class="participant-check" aria-hidden="true">✓</span>
+        </label>
+
+        <label class="participant-card" id="teacherCard" for="teacherType">
+          <input
+            type="radio"
+            name="participantChoice"
+            id="teacherType"
+            value="teacher"
+          >
+          <span class="participant-icon" aria-hidden="true">👨‍🏫</span>
+          <span class="participant-info">
+            <strong>Teacher</strong>
+            <small>Participating as faculty</small>
+          </span>
+          <span class="participant-check" aria-hidden="true">✓</span>
+        </label>
+      </div>
+
+      <!-- Compatibility with existing quiz logic -->
+      <select id="participantType" class="participant-value" aria-hidden="true" tabindex="-1">
+        <option value="student" selected>Student</option>
         <option value="teacher">Teacher</option>
       </select>
     </div>
@@ -242,12 +280,25 @@ function updateParticipantFields() {
 
   $("roll").required = !teacher;
   $("dept").required = !teacher;
+
+  $("studentCard").classList.toggle("selected", !teacher);
+  $("teacherCard").classList.toggle("selected", teacher);
+
+  $("studentType").checked = !teacher;
+  $("teacherType").checked = teacher;
 }
 
-$("participantType").onchange = () => {
+$("studentType").addEventListener("change", () => {
+  $("participantType").value = "student";
   updateParticipantFields();
   $("err").textContent = "";
-};
+});
+
+$("teacherType").addEventListener("change", () => {
+  $("participantType").value = "teacher";
+  updateParticipantFields();
+  $("err").textContent = "";
+});
 
 async function load() {
   step(1);
@@ -315,7 +366,6 @@ $("go").onclick = async () => {
   }
 
   $("err").textContent = error;
-
   if (error) return;
 
   $("go").disabled = true;
@@ -339,7 +389,6 @@ $("go").onclick = async () => {
       return;
     }
 
-    // Keep participant details for the next attempt.
     P = {
       participantType: type,
       name: n,
@@ -386,14 +435,13 @@ $("edit").onclick = () => {
   view("s1");
 };
 
-// Start a new quiz attempt without reopening the details form.
+// Start an attempt without reopening the participant details form.
 function startQuiz() {
   i = 0;
   A = [];
 
   Q = Q0.map(x => ({ ...x }));
 
-  // Shuffle questions for each attempt.
   for (let k = Q.length - 1; k > 0; k--) {
     const j = Math.floor(Math.random() * (k + 1));
     [Q[k], Q[j]] = [Q[j], Q[k]];
@@ -417,7 +465,6 @@ function ask() {
 
   Q[i].o.forEach((t, k) => {
     const b = document.createElement("button");
-
     b.className = "opt" + (A[i] === k ? " sel" : "");
 
     const label = document.createElement("span");
@@ -553,7 +600,7 @@ function finish(d) {
   }
 }
 
-// Retry directly with the same participant details.
+// Retry with the same participant details.
 $("retry").onclick = () => {
   if (!P || !P.participantType || !P.name) {
     alert("Participant details are missing. Please enter your details again.");
@@ -562,7 +609,6 @@ $("retry").onclick = () => {
     return;
   }
 
-  // Server checks attempts again when the quiz is submitted.
   startQuiz();
 };
 
